@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-
     public Transform target;
     public float smoothTime = 0.45F;
     private Vector3 velocity = Vector3.zero;
@@ -17,5 +16,4 @@ public class CameraFollow : MonoBehaviour
         // Smoothly move the camera towards that target position
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
     }
-
 }
