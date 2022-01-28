@@ -506,6 +506,7 @@ MonoBehaviour:
   movementSpeed: 20
   rotateAngle: 100
   forceSlowDown: 0.5
+  moveDelay: 0.2
 --- !u!4 &1875335165
 Transform:
   m_ObjectHideFlags: 0

@@ -13,6 +13,10 @@ public class PlayerMovement : MonoBehaviour
     public float rotateAngle = 100f;
     public float forceSlowDown = 0.2f;
 
+    public float moveDelay = 0.2f;
+    float moveDelayReset;
+    bool canMove = true;
+
     Vector2 mousePosition;
     Vector2 mouseDirection;
 
@@ -22,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        moveDelayReset = moveDelay;
 
     }
 
@@ -31,47 +36,37 @@ public class PlayerMovement : MonoBehaviour
         mouseDirection = (Vector2)Input.mousePosition;
 
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canMove)
         {
-            Debug.Log("Move");
-
-            //Get mouse direction
+            //Get mouse direction and move towards that point
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseDirection = mousePosition - (Vector2)transform.position;
-
-            //Add force towards mouse position
             rb.velocity = mouseDirection.normalized * movementSpeed;
-            //StartCoroutine(SlowDownForce(forceSlowDown));
+
+            //Start countdown of when player can move again
+            moveDelay -= Time.deltaTime;
+            StopMovement();
         }
 
-
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    //rb.AddForce(Vector2.right * impulseSpeed, ForceMode2D.Impulse);
-        //    //SlowDownForce(0.2f);
-        //    rb.velocity += (Vector2)transform.right * forcePower * Time.deltaTime;
-        //    StartCoroutine(SlowDownForce(forceSlowDown));
-        //}
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    //rb.AddForce(Vector2.left * impulseSpeed, ForceMode2D.Impulse);
-        //    //SlowDownForce(0.2f);
-        //    rb.velocity -= (Vector2)transform.right * forcePower * Time.deltaTime;
-        //    StartCoroutine(SlowDownForce(forceSlowDown));
-        //}
-
     }
 
-    IEnumerator SlowDownForce(float timeSlowDown)
+    //Stops the player movement
+    private void StopMovement()
     {
-        yield return new WaitForSeconds(timeSlowDown);
-        rb.velocity = Vector2.zero;
-        rb.angularVelocity = 0;
+        canMove = false;
+        StartCoroutine(MoveDelay(moveDelay));
+    }
 
-
-        //Rotate(Input.GetAxisRaw("Horizontal"));
+    //Allows the player to move again after delay of X seconds.
+    IEnumerator MoveDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+        canMove = true;
+        moveDelay = moveDelayReset;
+        yield return null;
 
     }
+
 }
 
 //void Rotate(float rotateDirection)
