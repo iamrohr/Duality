@@ -10,9 +10,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
 
     public float movementSpeed = 10f;
-    public float rotateAngle = 100f;
     public float forceSlowDown = 0.2f;
-    public float rotationSpeed = 500f;
 
     public float moveDelay = 0.2f;
     float moveDelayReset;
@@ -21,14 +19,13 @@ public class PlayerMovement : MonoBehaviour
     Vector2 mousePosition;
     Vector2 mouseDirection;
 
-    Coroutine SlowDownAbort;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         moveDelayReset = moveDelay;
-
     }
 
     // Update is called once per frame
@@ -36,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     {
         mouseDirection = (Vector2)Input.mousePosition;
 
-
+        //Movement
         if (Input.GetMouseButtonDown(0) && canMove)
         {
             //Get mouse direction and move towards that point
@@ -47,19 +44,8 @@ public class PlayerMovement : MonoBehaviour
             //Start countdown of when player can move again
             moveDelay -= Time.deltaTime;
             StopMovement();
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.RotateAround(transform.position, transform.forward, Time.deltaTime * rotationSpeed);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.RotateAround(transform.position, - transform.forward, Time.deltaTime * rotationSpeed);
-        }
-
-
+        
+        } 
 
     }
 
@@ -79,6 +65,11 @@ public class PlayerMovement : MonoBehaviour
         yield return null;
 
     }
+
+    //När jag klickar på A rotera åt vänster 45 grader med farten 2 m/s och ease in på slutet.
+
+
+
 
 }
 
