@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed = 10f;
     public float rotateAngle = 100f;
     public float forceSlowDown = 0.2f;
+    public float rotationSpeed = 500f;
 
     public float moveDelay = 0.2f;
     float moveDelayReset;
@@ -47,6 +48,18 @@ public class PlayerMovement : MonoBehaviour
             moveDelay -= Time.deltaTime;
             StopMovement();
         }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.RotateAround(transform.position, transform.forward, Time.deltaTime * rotationSpeed);
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.RotateAround(transform.position, - transform.forward, Time.deltaTime * rotationSpeed);
+        }
+
+
 
     }
 
