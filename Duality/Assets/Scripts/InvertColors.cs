@@ -6,7 +6,14 @@ public class InvertColors : MonoBehaviour
 {
     public Material _material;
     public float transitionSpeed = 0.25f;
-    
+
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            InvertColorsBW();
+        }
+    }
 
     [ContextMenu("invert")]
     public void InvertColorsBW()
