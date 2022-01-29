@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
+    [SerializeField] private Rigidbody2D holderRB;
+    [SerializeField] private PlayerGrow playerGrow;
+    
     public int numberOfPoints;
     public float radius = 5;
     
@@ -26,7 +29,8 @@ public class Shield : MonoBehaviour
     {
         if (col.CompareTag("Enemy"))
         {
-            col.GetComponent<Enemy>().Bounce();
+            StartCoroutine(playerGrow.DecreaseSize(1.05f));
+            col.GetComponent<Enemy>().Bounce(holderRB.velocity);
         }
     }
     
@@ -47,7 +51,7 @@ public class Shield : MonoBehaviour
     [ContextMenu("SetSize")]
     public void Test()
     {
-        SetSize(0.5f);
+        SetSize(0.2f);
     }
     
     public void SetSize(float size)
@@ -55,12 +59,12 @@ public class Shield : MonoBehaviour
         size = Mathf.Clamp(size, 0, 1);
 
         int newNumberOfPoints = Mathf.FloorToInt((numberOfPoints * size));
-
+        var indexOffset = (numberOfPoints - newNumberOfPoints) / 2;
         var newPoints = new Vector3[newNumberOfPoints];
 
         for (int i = 0; i < newNumberOfPoints; i++)
         {
-            newPoints[i] = _points[i];
+                newPoints[i] = _points[i + indexOffset];
         }
         SetPoints(newPoints);
     }
