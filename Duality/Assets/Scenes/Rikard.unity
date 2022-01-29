@@ -513,8 +513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 704ea4fe3e389e44494c29498dee246a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleFactor: 2
-  growTime: 0.5
+  playerCurrentSize: {x: 0, y: 0, z: 0}
+  increaseSizeSpeed: 0.1
 --- !u!1 &2128550521
 GameObject:
   m_ObjectHideFlags: 0

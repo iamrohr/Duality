@@ -4,86 +4,45 @@ using UnityEngine;
 
 public class PlayerGrow : MonoBehaviour
 {
-
-    //GameObject player;
-    //public Vector3 scaleChange;
-    //public float growMultiplier = 0.5f;
-    //// Start is called before the first frame update
-
-
-    //void Start()
-    //{
-    //    player = GameObject.FindGameObjectWithTag("Player");
-    //}
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.G))
-    //    {
-    //    player.transform.localScale += new Vector3(growMultiplier * Time.deltaTime, growMultiplier * Time.deltaTime, 0);
-    //        Grow();
-    //    }
-    //}
-
-
-    //void Grow()
-    //{
-    //}
-
-
     GameObject player;
+    Transform playerTransform;
+    public Vector3 playerCurrentSize;
+    private Vector3 velocity = Vector3.zero;
+    public float increaseSizeSpeed = 0.25f;
 
-    float growTimeReset;
-    public float scaleFactor = 10f;
-
-    public float growTime = 0.5f;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-
+        playerTransform = player.transform;
+        playerCurrentSize = player.transform.localScale;
     }
 
-    void Update()
+    private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.G))
-        {
-            growTime -= Time.deltaTime;
-            StartCoroutine(ScaleOverTime(growTime));
+        {            
+        StartCoroutine(IncreaseSize(1.3f));
         }
     }
 
-    IEnumerator ScaleOverTime(float time)
+    public IEnumerator IncreaseSize(float sizeMultiplier)
     {
-        Vector3 currentScale = player.transform.localScale;
-        Vector3 destinationScale = currentScale * scaleFactor;
-        //Vector3 destinationScale = new Vector3(scaleFactor, scaleFactor, 0);
-
-        do
+        playerCurrentSize = player.transform.localScale;
+        Vector3 targetSize = new Vector3(playerCurrentSize.x * sizeMultiplier, playerCurrentSize.y * sizeMultiplier, playerCurrentSize.z);
+        
+        float t = 0;
+        while (t < 1)
         {
-            player.transform.localScale = Vector3.Lerp(currentScale, destinationScale, time);
-
+            //playerTransform.localScale = Vector3.SmoothDamp(playerCurrentSize, targetSize, ref velocity, increaseSizeSpeed);
+            playerTransform.localScale = Vector3.Lerp(playerCurrentSize, targetSize, t);
+            t += Time.deltaTime / increaseSizeSpeed;
             yield return null;
         }
-        while (growTime <= time);
-
-
-        //Vector3 originalScale = player.transform.localScale;
-        //Vector3 destinationScale = new Vector3(scaleFactor, scaleFactor, 0);
-
-        //float currentTime = 0.0f;
-
-        //do
-        //{
-        //    player.transform.localScale = Vector3.Lerp(originalScale, destinationScale, currentTime / time);
-        //    currentTime += Time.deltaTime;
-        //    yield return null;
-        //} while (currentTime <= time);
-
+        Debug.Log("Increased");
+        yield return null;
     }
+
+
 }
-
-
 
