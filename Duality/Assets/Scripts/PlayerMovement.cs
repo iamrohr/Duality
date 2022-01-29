@@ -44,8 +44,45 @@ public class PlayerMovement : MonoBehaviour
             //Start countdown of when player can move again
             moveDelay -= Time.deltaTime;
             StopMovement();
-        
-        } 
+        }
+
+        if (Input.GetKey("right") && canMove)
+        {
+            rb.velocity = Vector3.right * movementSpeed;
+
+            //Start countdown of when player can move again
+            moveDelay -= Time.deltaTime;
+            StopMovement();
+        }
+
+        if (Input.GetKey("left") && canMove)
+        {
+            rb.velocity = Vector3.left * movementSpeed;
+
+            //Start countdown of when player can move again
+            moveDelay -= Time.deltaTime;
+            StopMovement();
+        }
+
+        if (Input.GetKey("up") && canMove)
+        {
+            rb.velocity = Vector3.up * movementSpeed;
+
+            //Start countdown of when player can move again
+            moveDelay -= Time.deltaTime;
+            StopMovement();
+        }
+
+        if (Input.GetKey("down") && canMove)
+        {
+            rb.velocity = Vector3.down * movementSpeed;
+
+            //Start countdown of when player can move again
+            moveDelay -= Time.deltaTime;
+            StopMovement();
+        }
+
+
 
     }
 
