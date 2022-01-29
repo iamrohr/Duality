@@ -24,12 +24,16 @@ public class PlayerGrow : MonoBehaviour
         {            
         StartCoroutine(IncreaseSize(1.3f));
         }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            StartCoroutine(DecreaseSize(1.3f));
+        }
     }
 
     public IEnumerator IncreaseSize(float sizeMultiplier)
     {
         playerCurrentSize = player.transform.localScale;
-        Vector3 targetSize = new Vector3(playerCurrentSize.x * sizeMultiplier, playerCurrentSize.y * sizeMultiplier, playerCurrentSize.z);
+        Vector3 targetSize = playerCurrentSize * sizeMultiplier;
         
         float t = 0;
         while (t < 1)
@@ -42,6 +46,24 @@ public class PlayerGrow : MonoBehaviour
         Debug.Log("Increased");
         yield return null;
     }
+
+    public IEnumerator DecreaseSize(float sizeMultiplier)
+    {
+        playerCurrentSize = player.transform.localScale;
+        Vector3 targetSize = playerCurrentSize / sizeMultiplier;
+
+        float t = 0;
+        while (t < 1)
+        {
+            //playerTransform.localScale = Vector3.SmoothDamp(playerCurrentSize, targetSize, ref velocity, increaseSizeSpeed);
+            playerTransform.localScale = Vector3.Lerp(playerCurrentSize, targetSize, t);
+            t += Time.deltaTime / increaseSizeSpeed;
+            yield return null;
+        }
+        Debug.Log("Increased");
+        yield return null;
+    }
+
 
 
 }
