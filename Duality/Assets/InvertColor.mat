@@ -25,11 +25,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaMultiplier: 1
-<<<<<<< HEAD
     - _Threshold: 1
-=======
-    - _Threshold: 0.059959784
->>>>>>> parent of 3af8cad (Updated Player Holder)
     - _Transperancy: 0.044
     m_Colors: []
   m_BuildTextureStacks: []
