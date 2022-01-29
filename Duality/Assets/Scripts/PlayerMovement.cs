@@ -12,9 +12,9 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed = 10f;
     public float forceSlowDown = 0.2f;
 
-    public float moveDelay = 0.2f;
+    public float moveDelay = 0.26f;
     float moveDelayReset;
-    bool canMove = true;
+    public bool canMove = true;
 
     Vector2 mousePosition;
     Vector2 mouseDirection;
@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = mouseDirection.normalized * movementSpeed;
 
             //Start countdown of when player can move again
-            moveDelay -= Time.deltaTime;
+
             StopMovement();
         }
 
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector3.right * movementSpeed;
 
             //Start countdown of when player can move again
-            moveDelay -= Time.deltaTime;
+ 
             StopMovement();
         }
 
@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector3.left * movementSpeed;
 
             //Start countdown of when player can move again
-            moveDelay -= Time.deltaTime;
+ 
             StopMovement();
         }
 
@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector3.up * movementSpeed;
 
             //Start countdown of when player can move again
-            moveDelay -= Time.deltaTime;
+
             StopMovement();
         }
 
@@ -78,17 +78,14 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector3.down * movementSpeed;
 
             //Start countdown of when player can move again
-            moveDelay -= Time.deltaTime;
             StopMovement();
         }
-
-
-
     }
 
     //Stops the player movement
     private void StopMovement()
     {
+        //moveDelay -= Time.deltaTime;
         canMove = false;
         StartCoroutine(MoveDelay(moveDelay));
     }
@@ -98,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         canMove = true;
-        moveDelay = moveDelayReset;
+        //moveDelay = moveDelayReset;
         yield return null;
 
     }

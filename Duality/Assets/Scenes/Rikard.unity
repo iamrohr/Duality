@@ -454,6 +454,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Holder
       objectReference: {fileID: 0}
+    - target: {fileID: 6331387515182580900, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: moveDelay
+      value: 0.26
+      objectReference: {fileID: 0}
     - target: {fileID: 6331387515182580901, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
       propertyPath: m_RootOrder
       value: 1
