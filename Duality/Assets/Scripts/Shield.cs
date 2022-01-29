@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
+    [SerializeField] private Rigidbody2D holderRB;
     public int numberOfPoints;
     public float radius = 5;
     
@@ -26,7 +27,7 @@ public class Shield : MonoBehaviour
     {
         if (col.CompareTag("Enemy"))
         {
-            col.GetComponent<Enemy>().Bounce();
+            col.GetComponent<Enemy>().Bounce(holderRB.velocity);
         }
     }
     

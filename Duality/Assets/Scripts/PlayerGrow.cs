@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerGrow : MonoBehaviour
@@ -21,9 +20,10 @@ public class PlayerGrow : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
-        {            
-        StartCoroutine(IncreaseSize(1.3f));
+        {
+            StartCoroutine(IncreaseSize(1.3f));
         }
+
         if (Input.GetKeyDown(KeyCode.H))
         {
             StartCoroutine(DecreaseSize(1.3f));
@@ -34,7 +34,7 @@ public class PlayerGrow : MonoBehaviour
     {
         playerCurrentSize = player.transform.localScale;
         Vector3 targetSize = playerCurrentSize * sizeMultiplier;
-        
+
         float t = 0;
         while (t < 1)
         {
@@ -43,6 +43,7 @@ public class PlayerGrow : MonoBehaviour
             t += Time.deltaTime / increaseSizeSpeed;
             yield return null;
         }
+
         Debug.Log("Increased");
         yield return null;
     }
@@ -60,11 +61,8 @@ public class PlayerGrow : MonoBehaviour
             t += Time.deltaTime / increaseSizeSpeed;
             yield return null;
         }
+
         Debug.Log("Increased");
         yield return null;
     }
-
-
-
 }
-

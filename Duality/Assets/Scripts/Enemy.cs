@@ -30,11 +30,6 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Bounce();
-        }
-
         if (_chasing || frame.isVisible) return;
         Die();
     }
@@ -52,7 +47,8 @@ public class Enemy : MonoBehaviour
     public void Absorb(Transform absorber)
     {
         _absorbing = true;
-        _rb.angularVelocity = 0;
+        _rb.isKinematic = true;
+        //_rb.angularVelocity = 0;
         _transform.SetParent(absorber);
         var colliders = GetComponents<Collider2D>();
         foreach (var col in colliders)
@@ -68,7 +64,7 @@ public class Enemy : MonoBehaviour
         float t = 0;
         while (t < 1)
         {
-            _rb.velocity = velocity;
+            //_rb.velocity = velocity;
             transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, t);
             t += Time.deltaTime / shrinkTime;
             yield return null;
@@ -77,13 +73,14 @@ public class Enemy : MonoBehaviour
         yield return null;
     }
 
-    public void Bounce()
+    public void Bounce(Vector2 velocity)
     {
         _chasing = false;
         fill.SetActive(true);
         _boxCollider2D.enabled = false;
         _transform.eulerAngles += 180 * Vector3.forward;
         _rb.angularVelocity = 0;
+        _rb.AddForce(velocity * 3, ForceMode2D.Impulse);
     }
 
     private void Die()
