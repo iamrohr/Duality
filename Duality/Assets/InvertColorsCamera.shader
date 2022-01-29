@@ -2,6 +2,7 @@
 {
     Properties{
         _MainTex("Texture", 2D) = "white" {}
+     _AlphaMultiplier("Alpha Multiplier", range(0.0, 10.0)) = 1.0
     }
 
         SubShader{
