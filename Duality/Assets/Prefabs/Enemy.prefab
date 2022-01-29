@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1094555710}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -195,6 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSpeed: 200
   moveForce: 50
+  shrinkTime: 0.6
   fill: {fileID: 4178673590356388289}
   frame: {fileID: 3414120340839185797}
 --- !u!1 &7190383940689599848

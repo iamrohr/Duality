@@ -1,15 +1,15 @@
-using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float rotateSpeed = 200f;
     [SerializeField] private float moveForce;
+    [SerializeField] private float shrinkTime = 0.1f;
     [SerializeField] private GameObject fill;
     [SerializeField] private SpriteRenderer frame;
 
-    private bool _chasing;
+    private bool _chasing, _absorbing;
     private Rigidbody2D _rb;
     private Transform _transform;
     private Transform _playerTransform;
@@ -34,17 +34,45 @@ public class Enemy : MonoBehaviour
         }
 
         if (_chasing || frame.isVisible) return;
-        EnemyManager.Instance.RemoveEnemyFromList(gameObject);
-        Destroy(gameObject);
+        Die();
     }
 
     private void FixedUpdate()
     {
+        if (_absorbing) return;
         _rb.AddForce(_transform.up * (moveForce * Time.fixedDeltaTime), ForceMode2D.Impulse);
         if (_chasing)
         {
             RotateTowardsPlayer();
         }
+    }
+
+    public void Absorb(Transform absorber)
+    {
+        _absorbing = true;
+        _rb.angularVelocity = 0;
+        _transform.SetParent(absorber);
+        var colliders = GetComponents<Collider2D>();
+        foreach (var col in colliders)
+        {
+            col.enabled = false;
+        }
+        StartCoroutine(ShrinkThenDie(absorber));
+    }
+
+    private IEnumerator ShrinkThenDie(Transform absorber)
+    {
+        var velocity = (absorber.position - _transform.position).normalized;
+        float t = 0;
+        while (t < 1)
+        {
+            _rb.velocity = velocity;
+            transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, t);
+            t += Time.deltaTime / shrinkTime;
+            yield return null;
+        }
+        Die();
+        yield return null;
     }
 
     public void Bounce()
@@ -53,6 +81,12 @@ public class Enemy : MonoBehaviour
         fill.SetActive(true);
         _transform.eulerAngles += 180 * Vector3.forward;
         _rb.angularVelocity = 0;
+    }
+
+    private void Die()
+    {
+        EnemyManager.Instance.RemoveEnemyFromList(gameObject);
+        Destroy(gameObject);
     }
 
     private void RotateTowardsPlayer()
