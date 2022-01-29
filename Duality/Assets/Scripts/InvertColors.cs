@@ -30,6 +30,8 @@ public class InvertColors : MonoBehaviour
             yield return null;
         }
 
+        _material.SetFloat("_Threshold", target); // :) 
+
         yield return null;
     }
 }

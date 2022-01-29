@@ -25,7 +25,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaMultiplier: 1
-    - _Threshold: 0.9399953
+    - _Threshold: 0
     - _Transperancy: 0.044
     m_Colors: []
   m_BuildTextureStacks: []
