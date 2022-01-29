@@ -13,9 +13,11 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D _rb;
     private Transform _transform;
     private Transform _playerTransform;
+    private BoxCollider2D _boxCollider2D;
 
     private void Awake()
     {
+        _boxCollider2D = GetComponent<BoxCollider2D>();
         _rb = GetComponent<Rigidbody2D>();
         _transform = transform;
         _playerTransform = GameObject.FindWithTag("Player").transform;
@@ -79,6 +81,7 @@ public class Enemy : MonoBehaviour
     {
         _chasing = false;
         fill.SetActive(true);
+        _boxCollider2D.enabled = false;
         _transform.eulerAngles += 180 * Vector3.forward;
         _rb.angularVelocity = 0;
     }

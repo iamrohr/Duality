@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -10,7 +9,6 @@ public class Shield : MonoBehaviour
     private LineRenderer _lineRenderer;
     private EdgeCollider2D _edgeCollider2D;
     private Vector3[] _points;
-    private Vector2[] _points2;
 
     private void Awake()
     {
@@ -21,7 +19,6 @@ public class Shield : MonoBehaviour
     private void Start()
     {
         _points = new Vector3[numberOfPoints];
-        _points2 = new Vector2[numberOfPoints];
         Setup();
     }
 
@@ -31,6 +28,20 @@ public class Shield : MonoBehaviour
         {
             col.GetComponent<Enemy>().Bounce();
         }
+    }
+    
+    private void Setup()
+    {
+        float radian = 0;
+        for (int i = 0; i < numberOfPoints; i++)
+        {
+            var x = Mathf.Cos(radian) * radius;
+            var y = Mathf.Sin(radian) * radius;
+
+            _points[i] = new Vector3(x, y, 0);
+            radian += Mathf.PI * 2 / numberOfPoints;
+        }
+        SetPoints(_points);
     }
 
     [ContextMenu("SetSize")]
@@ -46,43 +57,21 @@ public class Shield : MonoBehaviour
         int newNumberOfPoints = Mathf.FloorToInt((numberOfPoints * size));
 
         var newPoints = new Vector3[newNumberOfPoints];
-        var newPoints2 = new Vector2[newNumberOfPoints];
 
         for (int i = 0; i < newNumberOfPoints; i++)
         {
             newPoints[i] = _points[i];
-            newPoints2[i] = _points2[i];
         }
-
-        _lineRenderer.positionCount = newNumberOfPoints;
-        _lineRenderer.SetPositions(newPoints);
-        _edgeCollider2D.SetPoints(newPoints2.ToList());
+        SetPoints(newPoints);
     }
 
-    private void OnDrawGizmos()
+    private void SetPoints(Vector3[] points)
     {
-        if (!Application.isPlaying) return;
-        foreach (var point in _points)
-        {
-            Gizmos.DrawSphere(point, 0.2f);
-        }
+        var v2PointList = points.Select(point => (Vector2) point).ToList();
+
+        _lineRenderer.positionCount = points.Length;
+        _lineRenderer.SetPositions(points);
+        _edgeCollider2D.SetPoints(v2PointList);
     }
 
-    private void Setup()
-    {
-        float radian = 0;
-        for (int i = 0; i < numberOfPoints; i++)
-        {
-            var x = Mathf.Cos(radian) * radius;
-            var y = Mathf.Sin(radian) * radius;
-
-            _points[i] = new Vector3(x, y, 0);
-            _points2[i] = new Vector2(x, y);
-            radian += Mathf.PI * 2 / numberOfPoints;
-        }
-        
-        _lineRenderer.positionCount = numberOfPoints;
-        _lineRenderer.SetPositions(_points);
-        _edgeCollider2D.SetPoints(_points2.ToList());
-    }
 }
