@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class PlayerGrow : MonoBehaviour
 {
-    GameObject player;
-    Transform playerTransform;
     public Vector3 playerCurrentSize;
-    private Vector3 velocity = Vector3.zero;
     public float increaseSizeSpeed = 0.25f;
-
+    [SerializeField] private Transform targetBig;
+    [SerializeField] private Transform targetSmall;
+    
+    private bool goalIsGrowth = true;
+    private Vector3 velocity = Vector3.zero;
+    private GameObject player;
+    private Transform playerTransform;
 
     private void Start()
     {
@@ -21,16 +24,16 @@ public class PlayerGrow : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            StartCoroutine(IncreaseSize(1.3f));
+            StartCoroutine(ChangeSize(1.25f));
         }
 
         if (Input.GetKeyDown(KeyCode.H))
         {
-            StartCoroutine(DecreaseSize(1.3f));
+            StartCoroutine(ChangeSize(0.8f));
         }
     }
 
-    public IEnumerator IncreaseSize(float sizeMultiplier)
+    public IEnumerator ChangeSize(float sizeMultiplier)
     {
         playerCurrentSize = player.transform.localScale;
         Vector3 targetSize = playerCurrentSize * sizeMultiplier;
@@ -43,24 +46,43 @@ public class PlayerGrow : MonoBehaviour
             t += Time.deltaTime / increaseSizeSpeed;
             yield return null;
         }
+        
+        CheckSize();
 
         yield return null;
     }
 
-    public IEnumerator DecreaseSize(float sizeMultiplier)
+    private void CheckSize()
     {
-        playerCurrentSize = player.transform.localScale;
-        Vector3 targetSize = playerCurrentSize / sizeMultiplier;
-
-        float t = 0;
-        while (t < 1)
+        var sizeMagnitude = player.transform.localScale.sqrMagnitude;
+        if (goalIsGrowth)
         {
-            //playerTransform.localScale = Vector3.SmoothDamp(playerCurrentSize, targetSize, ref velocity, increaseSizeSpeed);
-            playerTransform.localScale = Vector3.Lerp(playerCurrentSize, targetSize, t);
-            t += Time.deltaTime / increaseSizeSpeed;
-            yield return null;
+            if (sizeMagnitude >= targetBig.localScale.sqrMagnitude)
+            {
+                Debug.Log("big target met");
+                goalIsGrowth = false;
+                targetBig.gameObject.SetActive(false);
+                targetSmall.gameObject.SetActive(true);
+                //TODO: Add point, invert colors, change shield size
+            }
+            else if (sizeMagnitude < (Vector3.one * 0.1f).sqrMagnitude)
+            {
+                //TODO: Die, game over
+            }
         }
-
-        yield return null;
+        else
+        {
+            if (sizeMagnitude <= targetSmall.localScale.sqrMagnitude)
+            {
+                goalIsGrowth = true;
+                targetBig.gameObject.SetActive(true);
+                targetSmall.gameObject.SetActive(false);
+                //TODO: Add point, invert colors, change shield size
+            }
+            else if (sizeMagnitude > (Vector3.one * 10).sqrMagnitude)
+            {
+                //TODO: Die, game over
+            }
+        }
     }
 }

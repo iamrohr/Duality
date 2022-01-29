@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D holderRB;
+    [SerializeField] private Rigidbody2D holderRb;
     [SerializeField] private PlayerGrow playerGrow;
     
     public int numberOfPoints;
@@ -27,11 +27,10 @@ public class Shield : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Enemy"))
-        {
-            StartCoroutine(playerGrow.DecreaseSize(1.05f));
-            col.GetComponent<Enemy>().Bounce(holderRB.velocity);
-        }
+        if (!col.CompareTag("Enemy")) return;
+        
+        StartCoroutine(playerGrow.ChangeSize(0.95f));
+        col.GetComponent<Enemy>().Bounce(holderRb.velocity);
     }
     
     private void Setup()
@@ -53,8 +52,8 @@ public class Shield : MonoBehaviour
     {
         SetSize(0.2f);
     }
-    
-    public void SetSize(float size)
+
+    private void SetSize(float size)
     {
         size = Mathf.Clamp(size, 0, 1);
 
@@ -64,7 +63,7 @@ public class Shield : MonoBehaviour
 
         for (int i = 0; i < newNumberOfPoints; i++)
         {
-                newPoints[i] = _points[i + indexOffset];
+            newPoints[i] = _points[i + indexOffset];
         }
         SetPoints(newPoints);
     }
@@ -77,5 +76,4 @@ public class Shield : MonoBehaviour
         _lineRenderer.SetPositions(points);
         _edgeCollider2D.SetPoints(v2PointList);
     }
-
 }

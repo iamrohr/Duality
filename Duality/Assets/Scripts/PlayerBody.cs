@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerBody : MonoBehaviour
@@ -7,10 +6,9 @@ public class PlayerBody : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
-        {
-            StartCoroutine(playerGrow.IncreaseSize(1.05f));
-            other.GetComponent<Enemy>().Absorb(transform);
-        }
+        if (!other.CompareTag("Enemy")) return;
+        
+        StartCoroutine(playerGrow.ChangeSize(1.05f));
+        other.GetComponent<Enemy>().Absorb(transform);
     }
 }

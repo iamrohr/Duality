@@ -49,23 +49,23 @@ public class Enemy : MonoBehaviour
         _absorbing = true;
         _rb.isKinematic = true;
         //_rb.angularVelocity = 0;
-        _transform.SetParent(absorber);
+        _transform.SetParent(absorber.parent);
         var colliders = GetComponents<Collider2D>();
         foreach (var col in colliders)
         {
             col.enabled = false;
         }
-        StartCoroutine(ShrinkThenDie(absorber));
+        StartCoroutine(AbsorbCoroutine(_transform.parent));
     }
 
-    private IEnumerator ShrinkThenDie(Transform absorber)
+    private IEnumerator AbsorbCoroutine(Transform absorber)
     {
-        var velocity = (absorber.position - _transform.position).normalized;
+        var startPosition = _transform.localPosition;
         float t = 0;
         while (t < 1)
         {
-            //_rb.velocity = velocity;
-            transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, t);
+            _transform.localPosition = Vector3.Lerp(startPosition, startPosition / 2, t);   
+            _transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, t);
             t += Time.deltaTime / shrinkTime;
             yield return null;
         }
