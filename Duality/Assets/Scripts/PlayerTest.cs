@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerTest : MonoBehaviour
@@ -12,12 +11,7 @@ public class PlayerTest : MonoBehaviour
             other.GetComponent<Enemy>().Absorb(transform);
         }
     }
-
-    private void Start()
-    {
-        
-    }
-
+    
     [ContextMenu("Test")]
     public void Test()
     {
