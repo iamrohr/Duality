@@ -22,11 +22,11 @@ Shader "Custom/2D/InvertColor"
             sampler2D _MainTex;
             float _Threshold;
  
-            fixed4 frag (v2f_img i) : SV_Target
+            fixed4 frag(v2f_img i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
                 col.rgb = abs(_Threshold - col.rgb);
-                return col;
+                return col;   
             }
             ENDCG
         }
