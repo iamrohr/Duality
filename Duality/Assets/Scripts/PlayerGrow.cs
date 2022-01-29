@@ -44,7 +44,6 @@ public class PlayerGrow : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("Increased");
         yield return null;
     }
 
@@ -62,7 +61,6 @@ public class PlayerGrow : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("Increased");
         yield return null;
     }
 }
