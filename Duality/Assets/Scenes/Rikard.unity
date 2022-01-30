@@ -475,6 +475,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Holder
       objectReference: {fileID: 0}
+    - target: {fileID: 6331387515182580900, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: playerMovementSound.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6331387515182580900, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: playerMovementSound.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 52215a7465cd68b428588d3b33b7de1c, type: 3}
+    - target: {fileID: 6331387515182580900, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: playerMovementSound.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: b6c2af62bcb9fde4da48e7a1693736f0, type: 3}
+    - target: {fileID: 6331387515182580900, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: playerMovementSound.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 8bc65fc3c4c6053469462d8eb14d7414, type: 3}
+    - target: {fileID: 6331387515182580900, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: playerMovementSound.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9ac7bce161d43d347baa73d4bebe425c, type: 3}
+    - target: {fileID: 6331387515182580900, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: playerMovementSound.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3b2b95385e39b4b458aceb5fc88dd3e2, type: 3}
+    - target: {fileID: 6331387515182580900, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: playerMovementSound.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 97a10f98e03f11944814f8a108f0468d, type: 3}
     - target: {fileID: 6331387515182580901, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
       propertyPath: m_RootOrder
       value: 2

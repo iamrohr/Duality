@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
         
     [Header("Sound")]
     public AudioClip[] playerMovementSound;
-    public float playerMovementVolume = 1f;
+    public float playerMovementVolume = 0.6f;
 
     public float movementSpeed = 10f;
     public float forceSlowDown = 0.2f;
