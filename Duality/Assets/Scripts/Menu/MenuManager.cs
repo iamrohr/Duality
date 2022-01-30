@@ -21,7 +21,8 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-
+        ChangeFromMain();
+        Invoke(nameof(LoadGame), 0.5f + 0.69f);
     }
 
     public void Setting()
@@ -61,10 +62,16 @@ public class MenuManager : MonoBehaviour
         GetComponent<InvertColors>().InvertColorsBW();
     }
 
+
     void DeactivateThingy()
     {
         _coverThingy.SetActive(false);
         _start.SetActive(false);
+    }
+
+    void LoadGame()
+    {
+        SceneManager.LoadScene("Test");
     }
 
     void ActivateSettings()
