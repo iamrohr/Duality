@@ -2,29 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UICycles : MonoBehaviour
+public class UICycles : Singleton<UICycles>
 {
     public Vector2 [,] Grid;
     float Vertical, Horizontal;
     int Columns, Rows;
     public Camera camera;
     public GameObject scoreCycle;
-
-    //Point counter
     public int score = 0;
-    // Start is called before the first frame update
+
     void Start()
     {
         //Create grid of positions
         //Vertical = (int)camera.orthographicSize;
 
-
-        Horizontal = Screen.width - 160;
-        Vertical = Screen.height - 60;
+        Horizontal = Screen.width - 80;
+        Vertical = Screen.height;
         Debug.Log(Horizontal);
 
-        Columns = 20;
-        Rows = 20;
+        Columns = 16;
+        Rows = 9;
 
         Grid = new Vector2[Columns, Rows];
 
@@ -32,21 +29,20 @@ public class UICycles : MonoBehaviour
         {
             for (int j = 0; j < Rows; j++)
             {
-                Grid[i, Rows - j - 1] = camera.ScreenToWorldPoint(new Vector2((Horizontal * i / Columns + 80), (Vertical * j / Rows + 30)));
-                //SpawnCycle(i, j, Grid[ i, Rows - j - 1]);
+                Grid[i, Rows - j - 1] = (new Vector2((Horizontal * i / Columns + 40), (Vertical * j / Rows + 30)));
             }
         }
-
-        //SpawnCycle(0,0,Grid[0,0]);
-
     }
 
     private void SpawnCycle(int score)
     {
-
+        var x = score % Grid.GetLength(0);
+        var y = score / Grid.GetLength(0);
+        
+        Instantiate(scoreCycle, (Vector2) camera.ScreenToWorldPoint(Grid[x, y]), Quaternion.identity, transform);
     }
-
-    public void SpawnNextCykle()
+    
+    public void SpawnNextCycle()
     {
         SpawnCycle(score);
         score ++;

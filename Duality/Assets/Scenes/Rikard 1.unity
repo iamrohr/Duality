@@ -578,8 +578,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 267818561}
-  scoreCycle: {fileID: 154120751973572990, guid: ac04333c34ab7634eb5b3471fcfed754, type: 3}
-  score: 0
 --- !u!1001 &6331387513777312600
 PrefabInstance:
   m_ObjectHideFlags: 0

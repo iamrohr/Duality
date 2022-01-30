@@ -68,7 +68,7 @@ public class PlayerGrow : MonoBehaviour
                 targetSmall.gameObject.SetActive(true);
                 shield.SetSize(0.2f);
                 invertColors.InvertColorsBW();
-                //TODO: Add point
+                UICycles.Instance.SpawnNextCycle();
             }
             else if (sizeMagnitude < (Vector3.one * 0.1f).sqrMagnitude)
             {
@@ -84,7 +84,7 @@ public class PlayerGrow : MonoBehaviour
                 targetSmall.gameObject.SetActive(false);
                 shield.SetSize(0.8f);
                 invertColors.InvertColorsBW();
-                //TODO: Add point
+                UICycles.Instance.SpawnNextCycle();
             }
             else if (sizeMagnitude > (Vector3.one * 10).sqrMagnitude)
             {
