@@ -10,8 +10,11 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
         
     [Header("Sound")]
+    public AudioClip music;
+    public float musicVolume = 1f;
+
     public AudioClip[] playerMovementSound;
-    public float playerMovementVolume = 0.6f;
+    public float playerMovementVolume = 0.25f;
 
     public float movementSpeed = 10f;
     public float forceSlowDown = 0.2f;
@@ -30,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         moveDelayReset = moveDelay;
+
+        MusicSound();
 
 }
 
@@ -113,6 +118,11 @@ public class PlayerMovement : MonoBehaviour
     void PlayerMovementSound()
     {
         AudioManager.Instance.sfxAudioSource.PlayOneShot(playerMovementSound[Random.Range(0, playerMovementSound.Length)], playerMovementVolume);
+    }
+
+    void MusicSound()
+    {
+        AudioManager.Instance.musicAudioSource.PlayOneShot(music, playerMovementVolume);
     }
 
     //När jag klickar på A rotera åt vänster 45 grader med farten 2 m/s och ease in på slutet.

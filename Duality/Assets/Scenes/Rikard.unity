@@ -476,6 +476,10 @@ PrefabInstance:
       value: Player Holder
       objectReference: {fileID: 0}
     - target: {fileID: 6331387515182580900, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 8300000, guid: d9d10196ecc94d44dabc3354e9970111, type: 3}
+    - target: {fileID: 6331387515182580900, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
       propertyPath: playerMovementSound.Array.size
       value: 3
       objectReference: {fileID: 0}
