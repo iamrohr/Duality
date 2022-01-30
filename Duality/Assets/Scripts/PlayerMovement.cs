@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour
     //Dash mot musen och rotera skölden med A och D
 
     Rigidbody2D rb;
+        
+    [Header("Sound")]
+    public AudioClip[] playerMovementSound;
+    public float playerMovementVolume = 1f;
 
     public float movementSpeed = 10f;
     public float forceSlowDown = 0.2f;
@@ -26,7 +30,8 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         moveDelayReset = moveDelay;
-    }
+
+}
 
     // Update is called once per frame
     void Update()
@@ -36,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         //Movement
         if (Input.GetMouseButtonDown(0) && canMove)
         {
+            PlayerMovementSound();
             //Get mouse direction and move towards that point
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseDirection = mousePosition - (Vector2)transform.position;
@@ -48,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey("right") && canMove)
         {
+            PlayerMovementSound();
             rb.velocity = Vector3.right * movementSpeed;
 
             //Start countdown of when player can move again
@@ -57,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey("left") && canMove)
         {
+            PlayerMovementSound();
             rb.velocity = Vector3.left * movementSpeed;
 
             //Start countdown of when player can move again
@@ -66,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey("up") && canMove)
         {
+            PlayerMovementSound();
             rb.velocity = Vector3.up * movementSpeed;
 
             //Start countdown of when player can move again
@@ -75,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey("down") && canMove)
         {
+            PlayerMovementSound();
             rb.velocity = Vector3.down * movementSpeed;
 
             //Start countdown of when player can move again
@@ -98,6 +108,11 @@ public class PlayerMovement : MonoBehaviour
         //moveDelay = moveDelayReset;
         yield return null;
 
+    }
+
+    void PlayerMovementSound()
+    {
+        AudioManager.Instance.sfxAudioSource.PlayOneShot(playerMovementSound[Random.Range(0, playerMovementSound.Length)], playerMovementVolume);
     }
 
     //När jag klickar på A rotera åt vänster 45 grader med farten 2 m/s och ease in på slutet.
