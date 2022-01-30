@@ -52,7 +52,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7be49d375f5038d4bbfad57f064e15d6, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,8 +94,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -163,8 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00f462937b4e674089daeaa5adc356b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holderRb: {fileID: 0}
-  playerGrow: {fileID: 0}
+  holderRb: {fileID: 6331387515182580899}
+  playerGrow: {fileID: 6331387515182580903}
   numberOfPoints: 100
   radius: 0.7
 --- !u!1 &6331387513637879141
@@ -387,9 +387,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0, b: 0, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.27058825}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1471,7 +1471,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 3
@@ -1480,7 +1480,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 0, g: 0, b: 0, a: 0.38039216}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -5548,6 +5548,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6331387514691321702}
   - component: {fileID: 6331387514691321703}
+  - component: {fileID: 716365609938945508}
+  - component: {fileID: 7248310410777266092}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5621,6 +5623,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &716365609938945508
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6331387514691321701}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &7248310410777266092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6331387514691321701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d4bf8a7103b2f48b127e3bf48cc1d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerGrow: {fileID: 6331387515182580903}
 --- !u!1 &6331387515182580898
 GameObject:
   m_ObjectHideFlags: 0
@@ -5676,7 +5707,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 20
   forceSlowDown: 0.5
-  moveDelay: 0.2
+  moveDelay: 0.26
+  canMove: 1
 --- !u!114 &6331387515182580902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5709,7 +5741,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6331387515182580903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5726,6 +5758,7 @@ MonoBehaviour:
   increaseSizeSpeed: 0.1
   targetBig: {fileID: 6381287204754974036}
   targetSmall: {fileID: 8504866431880817360}
+  shield: {fileID: 5371595443129894036}
 --- !u!114 &6331387515182582616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5924,7 +5957,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.25490198}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.25490198}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

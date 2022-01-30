@@ -18,7 +18,6 @@ public class UICycles : Singleton<UICycles>
 
         Horizontal = Screen.width - 80;
         Vertical = Screen.height;
-        Debug.Log(Horizontal);
 
         Columns = 16;
         Rows = 9;

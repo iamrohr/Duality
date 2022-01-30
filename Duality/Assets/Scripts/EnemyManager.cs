@@ -27,11 +27,11 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void SpawnEnemy()
     {
-        var spawnPosition = spawnPoints[Random.Range(0, spawnPoints.Length)].position;
+        Vector2 spawnPosition = spawnPoints[Random.Range(0, spawnPoints.Length)].position;
         var newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, transform);
         var enemyComp = newEnemy.GetComponent<Enemy>();
         enemyComp.moveForce = Random.Range(enemyComp.moveForce * 0.8f, enemyComp.moveForce * 1.25f);
-        enemyComp.moveForce = Random.Range(enemyComp.moveForce * 0.8f, enemyComp.moveForce * 1.25f);
+        enemyComp.moveForce = Random.Range(enemyComp.rotateSpeed * 0.8f, enemyComp.rotateSpeed * 1.25f);
         
         enemies.Add(newEnemy);
     }
