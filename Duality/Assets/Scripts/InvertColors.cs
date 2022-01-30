@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,16 @@ public class InvertColors : MonoBehaviour
         {
             InvertColorsBW();
         }
+    }
+
+    private void Awake()
+    {
+        SetThreshold(0);
+    }
+
+    private void SetThreshold(float value)
+    {
+        _material.SetFloat("_Threshold", value);
     }
 
     [ContextMenu("invert")]

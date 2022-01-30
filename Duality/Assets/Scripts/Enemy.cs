@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float rotateSpeed = 200f;
-    [SerializeField] private float moveForce;
+    public float rotateSpeed = 200f;
+    public float moveForce;
+    
     [SerializeField] private float shrinkTime = 0.1f;
     [SerializeField] private GameObject fill;
     [SerializeField] private SpriteRenderer frame;

@@ -5,10 +5,10 @@ public class Shield : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D holderRb;
     [SerializeField] private PlayerGrow playerGrow;
+    [SerializeField] private int numberOfPoints;
+    [SerializeField] private float radius = 5;
     
-    public int numberOfPoints;
-    public float radius = 5;
-    
+    private float _size;
     private LineRenderer _lineRenderer;
     private EdgeCollider2D _edgeCollider2D;
     private Vector3[] _points;
@@ -23,6 +23,7 @@ public class Shield : MonoBehaviour
     {
         _points = new Vector3[numberOfPoints];
         Setup();
+        SetSize(0.8f);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -35,6 +36,7 @@ public class Shield : MonoBehaviour
     
     private void Setup()
     {
+        _size = 1;
         float radian = 0;
         for (int i = 0; i < numberOfPoints; i++)
         {
@@ -53,9 +55,20 @@ public class Shield : MonoBehaviour
         SetSize(0.2f);
     }
 
-    private void SetSize(float size)
+    public void AddSize(float addend)
+    {
+        SetSize(_size + addend);
+    }
+
+    public void MultiplySize(float multiplier)
+    {
+        SetSize(_size * multiplier);
+    }
+
+    public void SetSize(float size)
     {
         size = Mathf.Clamp(size, 0, 1);
+        _size = size;
 
         int newNumberOfPoints = Mathf.FloorToInt((numberOfPoints * size));
         var indexOffset = (numberOfPoints - newNumberOfPoints) / 2;

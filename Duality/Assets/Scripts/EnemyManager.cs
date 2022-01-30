@@ -29,6 +29,10 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         var spawnPosition = spawnPoints[Random.Range(0, spawnPoints.Length)].position;
         var newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, transform);
+        var enemyComp = newEnemy.GetComponent<Enemy>();
+        enemyComp.moveForce = Random.Range(enemyComp.moveForce * 0.8f, enemyComp.moveForce * 1.25f);
+        enemyComp.moveForce = Random.Range(enemyComp.moveForce * 0.8f, enemyComp.moveForce * 1.25f);
+        
         enemies.Add(newEnemy);
     }
 

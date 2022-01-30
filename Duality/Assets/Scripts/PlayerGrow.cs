@@ -7,7 +7,9 @@ public class PlayerGrow : MonoBehaviour
     public float increaseSizeSpeed = 0.25f;
     [SerializeField] private Transform targetBig;
     [SerializeField] private Transform targetSmall;
+    [SerializeField] private Shield shield;
     
+    private InvertColors invertColors;
     private bool goalIsGrowth = true;
     private Vector3 velocity = Vector3.zero;
     private GameObject player;
@@ -15,6 +17,7 @@ public class PlayerGrow : MonoBehaviour
 
     private void Start()
     {
+        invertColors = GetComponent<InvertColors>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerTransform = player.transform;
         playerCurrentSize = player.transform.localScale;
@@ -63,7 +66,9 @@ public class PlayerGrow : MonoBehaviour
                 goalIsGrowth = false;
                 targetBig.gameObject.SetActive(false);
                 targetSmall.gameObject.SetActive(true);
-                //TODO: Add point, invert colors, change shield size
+                shield.SetSize(0.2f);
+                invertColors.InvertColorsBW();
+                //TODO: Add point
             }
             else if (sizeMagnitude < (Vector3.one * 0.1f).sqrMagnitude)
             {
@@ -77,7 +82,9 @@ public class PlayerGrow : MonoBehaviour
                 goalIsGrowth = true;
                 targetBig.gameObject.SetActive(true);
                 targetSmall.gameObject.SetActive(false);
-                //TODO: Add point, invert colors, change shield size
+                shield.SetSize(0.8f);
+                invertColors.InvertColorsBW();
+                //TODO: Add point
             }
             else if (sizeMagnitude > (Vector3.one * 10).sqrMagnitude)
             {
