@@ -53,9 +53,5 @@ public class EnemyManager : Singleton<EnemyManager>
     public void GameOver()
     {
         StopSpawnEnemyRepeating();
-        foreach (var enemy in enemies)
-        {
-            Destroy(enemy);
-        }
     }
 }

@@ -550,6 +550,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 172cff50f57693e4983454d1e949098a, type: 3}
+--- !u!1 &330732256 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6492361446925044707, guid: 932b990319ca7cb43a6f7accdec79ae8, type: 3}
+  m_PrefabInstance: {fileID: 116264066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1030063307 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6331387514691321701, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+  m_PrefabInstance: {fileID: 6331387513777312600}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1567470430
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,9 +1023,17 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.minGradient.m_Mode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6331387514691321701, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 6331387515182580898, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
       propertyPath: m_Name
       value: Player Holder
+      objectReference: {fileID: 0}
+    - target: {fileID: 6331387515182580898, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6331387515182580900, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
       propertyPath: music
@@ -1093,6 +1111,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6331387515182580903, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1030063307}
+    - target: {fileID: 6331387515182580903, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
+      propertyPath: gameOverCanvas
+      value: 
+      objectReference: {fileID: 330732256}
     - target: {fileID: 6331387515182582616, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
       propertyPath: newCycleSound
       value: 
