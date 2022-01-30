@@ -8,6 +8,7 @@ public class PlayerGrow : MonoBehaviour
     [SerializeField] private Transform targetBig;
     [SerializeField] private Transform targetSmall;
     [SerializeField] private Shield shield;
+    [SerializeField] private GameObject gameOverCanvas;
     
     private InvertColors invertColors;
     private bool goalIsGrowth = true;
@@ -21,19 +22,6 @@ public class PlayerGrow : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerTransform = player.transform;
         playerCurrentSize = player.transform.localScale;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            StartCoroutine(ChangeSize(1.25f));
-        }
-
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            StartCoroutine(ChangeSize(0.8f));
-        }
     }
 
     public IEnumerator ChangeSize(float sizeMultiplier)
@@ -72,7 +60,7 @@ public class PlayerGrow : MonoBehaviour
             else if (sizeMagnitude < (Vector3.one * 0.5f).sqrMagnitude)
             {
                 Debug.Log("too small");
-                //TODO: Die, game over
+                StartCoroutine(Die(Vector3.zero));
             }
         }
         else
@@ -89,8 +77,25 @@ public class PlayerGrow : MonoBehaviour
             else if (sizeMagnitude > (Vector3.one * 6).sqrMagnitude)
             {
                 Debug.Log("too big");
-                //TODO: Die, game over
+                StartCoroutine(Die(Vector3.one * 25));
             }
         }
+    }
+
+    private IEnumerator Die(Vector3 targetSize)
+    {
+        var startScale = playerTransform.localScale;
+        float t = 0;
+        while (t < 1)
+        {
+            //Time.timeScale = Mathf.Lerp(1, 0, t);
+            playerTransform.localScale = Vector3.Lerp(startScale, targetSize, t);
+            t += Time.unscaledDeltaTime / 0.8f;
+            yield return null;
+        }
+
+        EnemyManager.Instance.GameOver();
+        gameOverCanvas.SetActive(true);
+        yield return null;
     }
 }

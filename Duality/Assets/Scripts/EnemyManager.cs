@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -47,5 +48,14 @@ public class EnemyManager : Singleton<EnemyManager>
     public void RemoveEnemyFromList(GameObject enemy)
     {
         enemies.Remove(enemy);
+    }
+
+    public void GameOver()
+    {
+        StopSpawnEnemyRepeating();
+        foreach (var enemy in enemies)
+        {
+            Destroy(enemy);
+        }
     }
 }
