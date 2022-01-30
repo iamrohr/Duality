@@ -39,7 +39,7 @@ public class PlayerGrow : MonoBehaviour
     public IEnumerator ChangeSize(float sizeMultiplier)
     {
         playerCurrentSize = player.transform.localScale;
-        Vector3 targetSize = playerCurrentSize * sizeMultiplier;
+        var targetSize = playerCurrentSize * sizeMultiplier;
 
         float t = 0;
         while (t < 1)
@@ -62,7 +62,6 @@ public class PlayerGrow : MonoBehaviour
         {
             if (sizeMagnitude >= targetBig.localScale.sqrMagnitude)
             {
-                Debug.Log("big target met");
                 goalIsGrowth = false;
                 targetBig.gameObject.SetActive(false);
                 targetSmall.gameObject.SetActive(true);
@@ -70,8 +69,9 @@ public class PlayerGrow : MonoBehaviour
                 invertColors.InvertColorsBW();
                 UICycles.Instance.SpawnNextCycle();
             }
-            else if (sizeMagnitude < (Vector3.one * 0.1f).sqrMagnitude)
+            else if (sizeMagnitude < (Vector3.one * 0.5f).sqrMagnitude)
             {
+                Debug.Log("too small");
                 //TODO: Die, game over
             }
         }
@@ -86,8 +86,9 @@ public class PlayerGrow : MonoBehaviour
                 invertColors.InvertColorsBW();
                 UICycles.Instance.SpawnNextCycle();
             }
-            else if (sizeMagnitude > (Vector3.one * 10).sqrMagnitude)
+            else if (sizeMagnitude > (Vector3.one * 6).sqrMagnitude)
             {
+                Debug.Log("too big");
                 //TODO: Die, game over
             }
         }

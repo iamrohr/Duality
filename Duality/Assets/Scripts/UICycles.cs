@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UICycles : Singleton<UICycles>
@@ -7,12 +5,13 @@ public class UICycles : Singleton<UICycles>
     public Vector2 [,] Grid;
     float Vertical, Horizontal;
     int Columns, Rows;
-    public Camera camera;
+    public new Camera camera;
     public GameObject scoreCycle;
     public int score = 0;
 
     void Start()
     {
+        camera = Camera.main;
         //Create grid of positions
         //Vertical = (int)camera.orthographicSize;
 
@@ -33,10 +32,10 @@ public class UICycles : Singleton<UICycles>
         }
     }
 
-    private void SpawnCycle(int score)
+    private void SpawnCycle(int gridPos)
     {
-        var x = score % Grid.GetLength(0);
-        var y = score / Grid.GetLength(0);
+        var x = gridPos % Grid.GetLength(0);
+        var y = gridPos / Grid.GetLength(0);
         
         Instantiate(scoreCycle, (Vector2) camera.ScreenToWorldPoint(Grid[x, y]), Quaternion.identity, transform);
     }
@@ -45,6 +44,7 @@ public class UICycles : Singleton<UICycles>
     {
         SpawnCycle(score);
         score ++;
+        EnemyManager.Instance.IncreaseDifficulty();
     }
 
 }

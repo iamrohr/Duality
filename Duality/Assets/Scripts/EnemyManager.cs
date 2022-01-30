@@ -4,8 +4,10 @@ using Random = UnityEngine.Random;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
-    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private float timeBetweenSpawns;
+    [SerializeField] private float moveForce;
+    [SerializeField] private float rotationSpeed;
+    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform[] spawnPoints;
     
     private List<GameObject> enemies = new List<GameObject>();
@@ -25,13 +27,19 @@ public class EnemyManager : Singleton<EnemyManager>
         CancelInvoke(nameof(SpawnEnemy));
     }
 
+    public void IncreaseDifficulty()
+    {
+        moveForce += 20;
+        rotationSpeed += 10;
+    }
+
     public void SpawnEnemy()
     {
         Vector2 spawnPosition = spawnPoints[Random.Range(0, spawnPoints.Length)].position;
         var newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, transform);
         var enemyComp = newEnemy.GetComponent<Enemy>();
-        enemyComp.moveForce = Random.Range(enemyComp.moveForce * 0.8f, enemyComp.moveForce * 1.25f);
-        enemyComp.moveForce = Random.Range(enemyComp.rotateSpeed * 0.8f, enemyComp.rotateSpeed * 1.25f);
+        enemyComp.moveForce = Random.Range(moveForce * 0.8f, moveForce * 1.25f);
+        enemyComp.rotateSpeed = Random.Range(rotationSpeed * 0.8f, rotationSpeed * 1.25f);
         
         enemies.Add(newEnemy);
     }
