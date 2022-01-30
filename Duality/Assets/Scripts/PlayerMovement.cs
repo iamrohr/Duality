@@ -116,12 +116,12 @@ public class PlayerMovement : MonoBehaviour
 
     void PlayerMovementSound()
     {
-        AudioManager.Instance.sfxAudioSource.PlayOneShot(playerMovementSound[Random.Range(0, playerMovementSound.Length)], playerMovementVolume);
+        AudioManager.Instance.sfxAudioSource.PlayOneShot(playerMovementSound[Random.Range(0, playerMovementSound.Length)], playerMovementVolume * PlayerPrefs.GetFloat("masterVolume"));
     }
 
     void MusicSound()
     {
-        AudioManager.Instance.musicAudioSource.PlayOneShot(music, playerMovementVolume);
+        AudioManager.Instance.musicAudioSource.PlayOneShot(music, playerMovementVolume * PlayerPrefs.GetFloat("masterVolume"));
     }
 
     //När jag klickar på A rotera åt vänster 45 grader med farten 2 m/s och ease in på slutet.
