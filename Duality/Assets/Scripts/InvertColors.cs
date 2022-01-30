@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class InvertColors : MonoBehaviour
 {
+    [Header("Sound")]
+    public AudioClip newCycleSound;
+    public float newCycleSoundVolume = 1f;
+
     public Material _material;
     public float transitionSpeed = 0.25f;
 
@@ -52,4 +56,10 @@ public class InvertColors : MonoBehaviour
 
         yield return null;
     }
+
+    void NewCycleSound()
+    {
+        AudioManager.Instance.sfxAudioSource.PlayOneShot(newCycleSound, newCycleSoundVolume);
+    }
+
 }
