@@ -33,6 +33,8 @@ public class InvertColors : MonoBehaviour
     [ContextMenu("invert")]
     public void InvertColorsBW()
     {
+        NewCycleSound();
+
         var val = _material.GetFloat("_Threshold");
         var newVal = 1 - val;
 

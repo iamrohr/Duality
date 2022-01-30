@@ -558,7 +558,7 @@ PrefabInstance:
     - target: {fileID: 6331387515182582616, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
       propertyPath: newCycleSound
       value: 
-      objectReference: {fileID: 8300000, guid: cc57bcc843ab37642804b1fec06315bd, type: 3}
+      objectReference: {fileID: 8300000, guid: 241b15c254c4b2b40a9193767f311d27, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35eec7e1f6951d64fa75f9e132c0549c, type: 3}
 --- !u!1001 &8031783870737059127
