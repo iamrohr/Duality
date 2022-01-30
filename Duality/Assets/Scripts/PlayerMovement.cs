@@ -34,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
         moveDelayReset = moveDelay;
 
         MusicSound();
-
 }
 
     // Update is called once per frame
@@ -116,12 +115,12 @@ public class PlayerMovement : MonoBehaviour
 
     void PlayerMovementSound()
     {
-        AudioManager.Instance.sfxAudioSource.PlayOneShot(playerMovementSound[Random.Range(0, playerMovementSound.Length)], playerMovementVolume * PlayerPrefs.GetFloat("masterVolume"));
+        AudioManager.Instance.sfxAudioSource.PlayOneShot(playerMovementSound[Random.Range(0, playerMovementSound.Length)], playerMovementVolume);
     }
 
     void MusicSound()
     {
-        AudioManager.Instance.musicAudioSource.PlayOneShot(music, playerMovementVolume * PlayerPrefs.GetFloat("masterVolume"));
+        AudioManager.Instance.musicAudioSource.PlayOneShot(music, playerMovementVolume);
     }
 
     //När jag klickar på A rotera åt vänster 45 grader med farten 2 m/s och ease in på slutet.
