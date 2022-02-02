@@ -12,6 +12,11 @@ public class InvertColors : MonoBehaviour
     public Material _material;
     public float transitionSpeed = 0.25f;
 
+    private void Awake()
+    {
+        SetThreshold(0);
+    }
+
     private void SetThreshold(float value)
     {
         _material.SetFloat("_Threshold", value);
