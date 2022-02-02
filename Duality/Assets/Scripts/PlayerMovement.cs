@@ -3,137 +3,101 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
-    //Dash mot musen och rotera skölden med A och D
-
-    Rigidbody2D rb;
-        
-    [Header("Sound")]
-    public AudioClip music;
+    [Header("Sound")] public AudioClip music;
     public float musicVolume = 1f;
 
     public AudioClip[] playerMovementSound;
     public float playerMovementVolume = 0.25f;
 
-    public float movementSpeed = 10f;
+    [Header("Movement Attributes")] public float movementSpeed = 10f;
     public float forceSlowDown = 0.2f;
-
     public float moveDelay = 0.26f;
-    float moveDelayReset;
-    public bool canMove = true;
+    private float _moveDelayReset;
+    [HideInInspector]public bool canMove = true;
+    
+    Rigidbody2D rb;
+    private Vector2 _mousePosition;
+    private Vector2 _mouseDirection;
 
-    Vector2 mousePosition;
-    Vector2 mouseDirection;
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        moveDelayReset = moveDelay;
+        _moveDelayReset = moveDelay;
 
         MusicSound();
+
+        void Update()
+        {
+            //Mouse Movement
+            _mouseDirection = (Vector2) Input.mousePosition;
+
+            if (Input.GetMouseButtonDown(0) && canMove)
+            {
+                PlayerMovementSound();
+                //Get mouse direction and move towards that point
+                _mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                _mouseDirection = _mousePosition - (Vector2) transform.position;
+                rb.velocity = _mouseDirection.normalized * movementSpeed;
+
+                //Start countdown of when player can move again
+
+                StopMovement();
+            }
+
+            //Keyboard Movement 
+            if (Input.GetKey("right") && canMove)
+            {
+                PlayerMovementSound();
+                rb.velocity = Vector3.right * movementSpeed;
+                StopMovement();
+            }
+
+            if (Input.GetKey("left") && canMove)
+            {
+                PlayerMovementSound();
+                rb.velocity = Vector3.left * movementSpeed;
+                StopMovement();
+            }
+
+            if (Input.GetKey("up") && canMove)
+            {
+                PlayerMovementSound();
+                rb.velocity = Vector3.up * movementSpeed;
+                StopMovement();
+            }
+
+            if (Input.GetKey("down") && canMove)
+            {
+                PlayerMovementSound();
+                rb.velocity = Vector3.down * movementSpeed;
+                StopMovement();
+            }
+        }
+
+        //Stops the player movement
+        void StopMovement()
+        {
+            canMove = false;
+            StartCoroutine(MoveDelay(moveDelay));
+        }
+
+        IEnumerator MoveDelay(float time)
+        {
+            yield return new WaitForSeconds(time);
+            canMove = true;
+            yield return null;
+        }
+
+        //Sounds
+        void PlayerMovementSound()
+        {
+            AudioManager.Instance.sfxAudioSource.PlayOneShot(
+                playerMovementSound[Random.Range(0, playerMovementSound.Length)], playerMovementVolume);
+        }
+
+        void MusicSound()
+        {
+            AudioManager.Instance.musicAudioSource.PlayOneShot(music, playerMovementVolume);
+        }
+    }
 }
-
-    // Update is called once per frame
-    void Update()
-    {
-        mouseDirection = (Vector2)Input.mousePosition;
-
-        //Movement
-        if (Input.GetMouseButtonDown(0) && canMove)
-        {
-            PlayerMovementSound();
-            //Get mouse direction and move towards that point
-            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mouseDirection = mousePosition - (Vector2)transform.position;
-            rb.velocity = mouseDirection.normalized * movementSpeed;
-
-            //Start countdown of when player can move again
-
-            StopMovement();
-        }
-
-        if (Input.GetKey("right") && canMove)
-        {
-            PlayerMovementSound();
-            rb.velocity = Vector3.right * movementSpeed;
-
-            //Start countdown of when player can move again
- 
-            StopMovement();
-        }
-
-        if (Input.GetKey("left") && canMove)
-        {
-            PlayerMovementSound();
-            rb.velocity = Vector3.left * movementSpeed;
-
-            //Start countdown of when player can move again
- 
-            StopMovement();
-        }
-
-        if (Input.GetKey("up") && canMove)
-        {
-            PlayerMovementSound();
-            rb.velocity = Vector3.up * movementSpeed;
-
-            //Start countdown of when player can move again
-
-            StopMovement();
-        }
-
-        if (Input.GetKey("down") && canMove)
-        {
-            PlayerMovementSound();
-            rb.velocity = Vector3.down * movementSpeed;
-
-            //Start countdown of when player can move again
-            StopMovement();
-        }
-    }
-
-    //Stops the player movement
-    private void StopMovement()
-    {
-        //moveDelay -= Time.deltaTime;
-        canMove = false;
-        StartCoroutine(MoveDelay(moveDelay));
-    }
-
-    //Allows the player to move again after delay of X seconds.
-    IEnumerator MoveDelay(float time)
-    {
-        yield return new WaitForSeconds(time);
-        canMove = true;
-        //moveDelay = moveDelayReset;
-        yield return null;
-
-    }
-
-    void PlayerMovementSound()
-    {
-        AudioManager.Instance.sfxAudioSource.PlayOneShot(playerMovementSound[Random.Range(0, playerMovementSound.Length)], playerMovementVolume);
-    }
-
-    void MusicSound()
-    {
-        AudioManager.Instance.musicAudioSource.PlayOneShot(music, playerMovementVolume);
-    }
-
-    //När jag klickar på A rotera åt vänster 45 grader med farten 2 m/s och ease in på slutet.
-
-
-
-
-}
-
-//void Rotate(float rotateDirection)
-//{
-//    var rotation = Quaternion.AngleAxis(rotateDirection * rotateAngle * Time.deltaTime, Vector2.up);
-//    transform.forward = rotation * transform.forward;
-//}
-
-
